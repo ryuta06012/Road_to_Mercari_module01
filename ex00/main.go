@@ -6,7 +6,7 @@
 /*   By: hryuuta <hryuuta@student.42tokyo.jp>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/23 12:46:30 by hryuuta           #+#    #+#             */
-/*   Updated: 2021/12/24 10:24:40 by hryuuta          ###   ########.fr       */
+/*   Updated: 2021/12/25 13:38:50 by hryuuta          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ import (
 
 var nm = flag.Bool("n", false, "Remove file before conversion")
 
-func myGetNextLine(file io.Reader, write io.Writer) {
+func myGetNextLine(file io.Reader, write io.Writer, nm *bool) {
 	scanner := bufio.NewScanner(file)
 	for i := 1; scanner.Scan(); i++ {
 		if *nm {
@@ -46,7 +46,7 @@ func main() {
 	switch filenames {
 	case "":
 		r = os.Stdin
-		myGetNextLine(r, w)
+		myGetNextLine(r, w, nm)
 	default:
 		for i := 0; i < flag.NArg(); i++ {
 			r, err := os.Open(flag.Arg(i))
@@ -54,7 +54,7 @@ func main() {
 				fmt.Fprint(os.Stderr, "opne file error!")
 			}
 			defer r.Close()
-			myGetNextLine(r, w)
+			myGetNextLine(r, w, nm)
 		}
 	}
 }

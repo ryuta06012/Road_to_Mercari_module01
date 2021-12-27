@@ -1,3 +1,3 @@
-module github.com/ryuta06012/Road_to_Mercari_module01
+module test
 
 go 1.17
